@@ -31,6 +31,18 @@ public class api {
         return userserviceObj.findById(id);
     }
 
+    @PutMapping("/updateUser")
+    public String Update_user(@RequestBody User u){
+        System.out.println("Hitting update user");
+        String id = u.getId();
+        try{
+            userserviceObj.UpdateByID(u, id);
+            return "Success";
+        }catch (RuntimeException e){
+            return "Failed";
+        }
+
+    }
     @GetMapping("/users")
     public List<User> findall(){
         return userserviceObj.findEveryOne();
