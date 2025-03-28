@@ -14,7 +14,7 @@ public class User {
     private String name;
     private List<String> skills;
     private List<User>clients;
-
+    private List<Chat>chats;
 
     public User(String id, String email, String password, String name, List<String> skills) {
         this.id = id;
@@ -62,5 +62,21 @@ public class User {
 
     public void setSkills(List<String> skills) {
         this.skills = skills;
+    }
+
+    public List<User> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<User> clients) {
+        this.clients = clients;
+    }
+
+    public List<Chat> getChats() {
+        return chats;
+    }
+
+    public void setChats(List<Chat> chats) {
+        this.chats = chats;
     }
 }

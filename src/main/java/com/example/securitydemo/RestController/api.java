@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 @RestController
 @CrossOrigin
@@ -27,9 +30,15 @@ public class api {
         System.out.println(id);
         return userserviceObj.findById(id);
     }
+
     @GetMapping("/users")
     public List<User> findall(){
         return userserviceObj.findEveryOne();
+    }
+    @GetMapping("/users/{email}")
+    public User getUserByEmail(@PathVariable String email){
+        System.out.println("fdnf d");
+        return userserviceObj.findByEmail(email);
     }
     @PostMapping("/registor")
     public User registor(@RequestBody User u){
@@ -37,8 +46,16 @@ public class api {
         return userserviceObj.createUser(u);
     }
     @PostMapping("/login")
-    public String login(@RequestBody User u){
+    public Map<String, Object> login(@RequestBody User u){
         System.out.println(u+" Nigga");
-        return userserviceObj.verify(u);
+        Map<String, Object> mp = new HashMap<>();
+        String res = userserviceObj.verify(u);
+        mp.put("result", res);
+        if(res.equals("failure")){
+            return mp;
+        }
+        User user = userserviceObj.findByEmail(u.getEmail());
+        mp.put("user",user);
+        return mp;
     }
 }
