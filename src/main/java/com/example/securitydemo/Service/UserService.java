@@ -39,10 +39,9 @@ public class UserService {
         if (existingUserOpt.isPresent()) { // Check if user exists
             User existing_user = existingUserOpt.get();
             if (u.getName() != null){ existing_user.setName(u.getName());}
-            if (u.getPassword() != null) existing_user.setPassword(encoder.encode(u.getPassword()));
             if (u.getSkills() != null) existing_user.setSkills(u.getSkills());
             return userRepo.save(existing_user);
-        }else{
+        }else{ 
             throw new RuntimeException("User not found");
         }
 
@@ -67,5 +66,21 @@ public class UserService {
             System.out.println(e.getMessage());
             return "failure";
         }
+    }
+    public String addNeeds(List<String>needs, String id){
+        try{
+            Optional<User>user = userRepo.findById(id);
+            if(user.isPresent()){
+                User current_user = user.get();
+                current_user.setNeeds(needs);
+                userRepo.save(current_user);
+                return "Success";
+            }else{
+                return "Failed";
+            }
+        }catch (Exception e){
+            throw new RuntimeException("User not found");
+        }
+
     }
 }

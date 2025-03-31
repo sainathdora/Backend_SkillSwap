@@ -49,7 +49,7 @@ public class api {
     }
     @GetMapping("/users/{email}")
     public User getUserByEmail(@PathVariable String email){
-        System.out.println("fdnf d");
+
         return userserviceObj.findByEmail(email);
     }
     @PostMapping("/registor")
@@ -69,5 +69,10 @@ public class api {
         User user = userserviceObj.findByEmail(u.getEmail());
         mp.put("user",user);
         return mp;
+    }
+    @PutMapping("/addNeeds")
+    public String addNeeds(@RequestBody User u){
+        List<String>needs = u.getNeeds();
+        return userserviceObj.addNeeds(needs, u.getId());
     }
 }
