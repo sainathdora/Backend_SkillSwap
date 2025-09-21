@@ -59,7 +59,6 @@ public class api {
     }
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody User u){
-        System.out.println(u+" Nigga");
         Map<String, Object> mp = new HashMap<>();
         String res = userserviceObj.verify(u);
         mp.put("result", res);
